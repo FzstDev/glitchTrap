@@ -2,6 +2,7 @@ import { Parseable, ValidateProperty } from "parzival";
 import HttpConfig from "./http";
 import DatabaseConfig from "./database";
 import ModuleConfigs from "./modules";
+import OAuthConfig from "./oauth";
 
 @Parseable()
 export default class DefGlobalConfig {
@@ -18,6 +19,13 @@ export default class DefGlobalConfig {
 		className: "DatabaseConfig"
 	})
 	database!: DatabaseConfig;
+
+	@ValidateProperty({
+		type: "object",
+		recurse: true,
+		className: "OAuthConfig",
+	})
+	oauth!: OAuthConfig;
 
 	@ValidateProperty({
 		type: "object",

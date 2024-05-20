@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+	<link href="assets/styles/main.css" rel="stylesheet" type="text/css" />
+	<title>Join the Minecraft Server!</title>
+</head>
+
+<body>
+	<div class="body-overlay">
+		<!-- Centered Card -->
+		<div class="flex justify-center items-center h-screen">
+			<div class="p-4">
+				<div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+					<div class="p-6">
+						<h1 class="text-center font-bold text-2xl mb-2 text-white">Bienvenid@ al servidor de Fzst!</h1>
+						<h3 class="text-center text-white text-lg mb-2
+						">Has sido invitad@ al servidor de Minecraft Oficial de
+							Fzst, para poder acceder al servidor debes cumplir los siguentes requisitos:</h3>
+						<ul class="text-white text-center">
+							<li>1. Tener Minecraft Java Edition</li>
+							<li>2. Ser parte del servidor de discord y tener acceso al canal de información de
+								Minecraft (o ser invitad@ por alguien que lo tenga)</li>
+						</ul>
+						<form class="mt-8 space-y-6">
+							<button type="button" class="
+							w-full
+							flex justify-center
+							bg-purple-600
+							hover:bg-purple-700
+							text-white
+							font-bold
+							py-2
+							px-4
+							border border-pink-700
+							rounded
+							mt-4
+							"> Da click aqui para registrarte </button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script defer>
+	const btn = document.querySelector('button');
+	btn.addEventListener('click', () => {
+		// Redirect to <domain>/minecraft/register
+		// Including the form parameters as query parameters
+		window.location.href = `/minecraft/register`;
+	});
+</script>
+
+</html>

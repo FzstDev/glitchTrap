@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+	<link href="assets/styles/main.css" rel="stylesheet" type="text/css" />
+	<title>Join the Minecraft Server!</title>
+</head>
+
+<body>
+	<div class="body-overlay">
+		<!-- Centered Card -->
+		<div class="flex justify-center items-center h-screen">
+			<div class="p-4">
+				<div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+					<div class="p-6" id="matcherBody">
+						<div class="flex justify-center items-center">
+							<!-- Centered -->
+							<h1 class="text-center font-bold text-2xl mb-2 text-white ml-auto
+							" id="welcome-user">¡Bienvenid@
+								{{discord.username}}!</h1>
+							<!-- Pin to the right -->
+							<img src="" alt="" id="profilePhoto" class="rounded-full w-20 h-20">
+						</div>
+
+						<h1 class="text-center font-bold text-2xl mb-2 text-white">Ya está todo!</h1>
+						<p class="text-center text-white text-lg mb-2">Esta es la información actual de tu cuenta,
+							disfruta!</p>
+						<table class="table-auto">
+							<thead>
+								<tr>
+									<th class="px-4 py-2 text-white">Nombre de usuario de Minecraft</th>
+									<th class="px-4 py-2 text-white">UUID</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="border px-4 py-2 text-white">{{minecraft.username}}</td>
+									<td class="border px-4 py-2 text-white">{{minecraft.uuid}}</td>
+								</tr>
+							</tbody>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script defer>
+	const getNestedVariable = (obj, path) => {
+		const pathArray = path.split('.');
+		let current = obj;
+		for (const key of pathArray) {
+			current = current[key];
+		}
+		return current;
+	}
+	(async () => {
+		const res = await fetch('/minecraft/userinfo');
+		if (res.status !== 200) {
+			window.location.href = '/minecraft/register';
+			return;
+		}
+		const data = await res.json();
+		// console.log(data);
+
+		const templatedRegex = /{{(.*?)}}/g;
+		// Replace all templated variables with their values
+		// eg {{discord.username}} -> 'username#1234'
+		const matcherBody = document.querySelector('#matcherBody');
+		const matches = matcherBody.innerHTML.match(templatedRegex);
+		// console.log(matches);
+		if (matches) {
+			for (const match of matches) {
+				const variable = match.replace('{{', '').replace('}}', '');
+				const variableMatcher = new RegExp(`{{${variable}}}`, 'g');
+				const value = getNestedVariable(data, variable);
+				document.body.innerHTML = document.body.innerHTML.replace(variableMatcher, value);
+			}
+		}
+		document.querySelector('#profilePhoto').src = data.discord.avatarURL;
+		//Correctly center the welcome message
+		const welcomeUser = document.querySelector('#welcome-user');
+		const marginLeft = document.querySelector('#profilePhoto').getBoundingClientRect().width;
+		const marginRight = document.querySelector('#profilePhoto').getBoundingClientRect().width;
+		welcomeUser.style.marginRight = `${marginRight + 20}px`;
+	})();
+</script>
+
+</html>
