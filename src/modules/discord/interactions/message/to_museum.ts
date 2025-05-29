@@ -5,7 +5,7 @@ import { getConfigProperty, getConfigValue } from "@src/engine/utils/Configurati
 import { getDatabase } from "@src/engine/utils/Composable";
 import GuildData from "@src/database/models/discord/GuildData";
 export default {
-	name: "send to museum",
+	name: "send-to-museum",
 	type: "message",
 	description: "Sends a message with attachments to the museum",
 	registerTo: "guild",
