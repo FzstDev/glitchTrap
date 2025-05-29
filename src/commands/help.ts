@@ -10,8 +10,8 @@ export default {
 		const columns = process.stdout.columns;
 		const commands = app.cli.commands;
 		const table = [];
-		for (const [, command] of commands) {
-			table.push(`${command.usage} - ${command.description}`);
+		for (const [cmd, command] of commands) {
+			table.push(`(${cmd}) ${command.usage} - ${command.description}`);
 		}
 		clear(table.join("\n"));
 	}
